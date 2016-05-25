@@ -7,7 +7,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.0'
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 22
     }
     buildTypes {
@@ -28,6 +28,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.1.0'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
 }
 
 def siteUrl = 'https://github.com/zhenbeiju/AndroidCommonUtil'      // 项目的主页
