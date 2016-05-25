@@ -26,6 +26,7 @@ public class LogManager {
 
     /**
      * 输出到文件
+     *
      * @param log String log
      */
     public static void outputToFile(String log) {
@@ -282,11 +283,10 @@ public class LogManager {
     // ID20120515002 liaoyixuan end
 
     /**
-     * @Title: e
-     * @Description: Print error log information
-     * @param: @param msg
-     * @return: void
-     * @Comment:
+     * e
+     * Print error log information
+     *
+     * @param msg
      */
     public static void e(String msg) {
         if (mIsOutLog) {
@@ -312,11 +312,10 @@ public class LogManager {
     }
 
     /**
-     * @Title: w
-     * @Description: Print Warnning log information
-     * @param: @param msg
-     * @return: void
-     * @Comment:
+     * w
+     * Print Warnning log information
+     *
+     * @param msg
      */
     public static void w(String msg) {
         if (mIsOutLog) {
@@ -329,11 +328,10 @@ public class LogManager {
     }
 
     /**
-     * @Title: d
-     * @Description: Print debug log information
-     * @param: @param msg
-     * @return: void
-     * @Comment:
+     * d
+     * Print debug log information
+     *
+     * @param msg
      */
     public static void d(String msg) {
 
@@ -347,11 +345,10 @@ public class LogManager {
     }
 
     /**
-     * @Title: v
-     * @Description: Print void log information
-     * @param: @param msg
-     * @return: void
-     * @Comment:
+     * v
+     * Print void log information
+     *
+     * @param msg
      */
     public static void v(String msg) {
         if (mIsOutLog) {
@@ -364,11 +361,8 @@ public class LogManager {
     }
 
     /**
-     * @Title: i
-     * @Description: Print info log information
-     * @param: msg String message
-     * @return: void
-     * @Comment:
+     * Print info log information
+     * msg String message
      */
     public static void i(String msg) {
         if (mIsOutLog) {

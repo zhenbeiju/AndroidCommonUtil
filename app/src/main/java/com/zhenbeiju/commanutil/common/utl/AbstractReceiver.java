@@ -22,7 +22,7 @@ import java.util.Map;
  * 
  * @author Jerome.Hu
  */
-public abstract class AbstractReceiver extends BroadcastReceiver implements IBroadcastHandler {
+public abstract class AbstractReceiver extends BroadcastReceiver  {
 	/**
 	 * 
 	 * @author Jerome.Hu. 类似于Broadcast中的onReceiver(Context,Intent)方法。接收回调。
@@ -50,7 +50,6 @@ public abstract class AbstractReceiver extends BroadcastReceiver implements IBro
 		mMapping = new HashMap<String, OnReceiverListener>();
 	}
 
-	@Override
 	public void register(Context context) {
 		// TODO Auto-generated method stub
 		final IntentFilter intentFilter = new IntentFilter();
@@ -60,7 +59,6 @@ public abstract class AbstractReceiver extends BroadcastReceiver implements IBro
 		context.registerReceiver(this, intentFilter);
 	}
 
-	@Override
 	public void unRegister(Context context) {
 		// TODO Auto-generated method stub
 		try {

@@ -2,7 +2,6 @@ package com.zhenbeiju.commanutil.common.utl.net;
 
 import android.text.TextUtils;
 
-
 import com.zhenbeiju.commanutil.common.utl.EnCodingUtil;
 
 import java.io.InputStream;
@@ -123,8 +122,7 @@ public class NetDataTypeTransform {
     /**
      * @param inStream
      * @return 读入的字节数组
-     * @throws Exception
-     * @方法功能 InputStream 转为 byte
+     * @throws Exception InputStream 转为 byte
      */
     public static byte[] inputStreamToByte(InputStream inStream) throws Exception {
         int count = 0;

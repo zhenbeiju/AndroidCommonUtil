@@ -30,7 +30,7 @@ import java.util.Locale;
  * performance and minimum runtime resources with tolerable sacrifice of accuracy. This
  * implementation highly depends on zh_CN ICU collation data and must be always synchronized with
  * ICU.
- * <p/>
+ * 
  * Currently this file is aligned to zh.txt in ICU 4.6
  */
 public class HanziToPinyin {
@@ -41,7 +41,7 @@ public class HanziToPinyin {
 
     /**
      * Unihans array.
-     * <p/>
+     * 
      * Each unihans is the first one within same pinyin when collator is zh_CN.
      */
     public static final char[] UNIHANS = {
@@ -119,7 +119,7 @@ public class HanziToPinyin {
 
     /**
      * Pinyin array.
-     * <p/>
+     * 
      * Each pinyin is corresponding to unihans of same
      * offset in the unihans array.
      */
