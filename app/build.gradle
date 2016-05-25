@@ -27,10 +27,12 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.okhttp:okhttp:2.1.0'
     compile 'com.mcxiaoke.volley:library:1.0.+'
+    testCompile 'junit:junit:4.12'
 }
-def siteUrl = 'https://github.com/saymagic/AndroidUtils'      // 项目的主页
-def gitUrl = 'https://github.com/saymagic/AndroidUtils.git'   // Git仓库的url
-group = "cn.saymagic" // Maven Group ID for the artifact，一般填你唯一的包名
+
+def siteUrl = 'https://github.com/zhenbeiju/AndroidCommonUtil'      // 项目的主页
+def gitUrl = 'https://github.com/zhenbeiju/AndroidCommonUtil.git'   // Git仓库的url
+group = "com.zhenbeiju" // Maven Group ID for the artifact，一般填你唯一的包名
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
@@ -50,8 +52,8 @@ install {
                 developers {
                     developer {
                         id 'zhenbeiju'       //填写开发者基本信息
-                        name 'saymagic'
-                        email 'cymmagic@gmail.com'
+                        name 'zhenbeiju'
+                        email 'zhenbeiju@gmail.com'
                     }
                 }
                 scm {
@@ -87,7 +89,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"  //发布到Bintray的那个仓库里，默认账户有四个库，我们这里上传到maven库
-        name = "commanUtils"  //发布到Bintray上的项目名字
+        name = "utils"  //发布到Bintray上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
