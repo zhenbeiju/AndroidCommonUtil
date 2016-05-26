@@ -22,7 +22,7 @@
         android:text="@string/processing"
         android:textColor="@color/black" />
 
-    <com.gc.materialdesign.views.ProgressBarIndeterminateDeterminate
+    <commanutil.ProgressBarIndeterminateDeterminate
         android:id="@+id/ProgressBarIndeterminateDeterminate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

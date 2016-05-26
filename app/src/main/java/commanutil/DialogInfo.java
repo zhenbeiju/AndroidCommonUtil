@@ -341,7 +341,7 @@ public class DialogInfo {
     }
 
 
-    public static void ShowToast(final String text) {
+    public static void showToast(final String text) {
         LogManager.e(text);
         MyApplication.mHandler.post(new Runnable() {
 
