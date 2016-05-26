@@ -46,7 +46,7 @@ public class ProgressBarCircularIndeterminate extends CustomView {
                 setBackgroundColor(Color.parseColor("#1E88E5"));
         }
 
-        setMinimumHeight(ScreenUtil.dip2px(3));
+        setMinimumHeight(ScreenUtil.dip2px(32));
 
 
     }

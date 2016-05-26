@@ -27,7 +27,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="@dimen/big_padding"
-        android:background="@android:color/white" />
+        android:background="@color/black_666" />
 
 
     <TextView
