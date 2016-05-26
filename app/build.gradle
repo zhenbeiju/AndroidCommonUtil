@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "1.0.6"
+version = "1.0.7"
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.0'
@@ -28,6 +28,10 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.1.0'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     testCompile 'junit:junit:4.12'
+    compile 'io.reactivex:rxjava:+'
+    compile 'io.reactivex:rxandroid:+'
+    compile 'io.reactivex:rxjava-math:+'
+
 }
 
 def siteUrl = 'https://github.com/zhenbeiju/AndroidCommonUtil'      // 项目的主页
@@ -81,6 +85,7 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {

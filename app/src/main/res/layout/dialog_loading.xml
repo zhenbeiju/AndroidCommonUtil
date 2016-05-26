@@ -22,7 +22,7 @@
         android:text="@string/processing"
         android:textColor="@color/black" />
 
-    <commanutil.ProgressBarCircularIndeterminate
+    <commanutil.view.ProgressBarCircularIndeterminate
         android:id="@+id/progressBarCircularIndeterminate"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -1,4 +1,4 @@
-package commanutil;
+package commanutil.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;

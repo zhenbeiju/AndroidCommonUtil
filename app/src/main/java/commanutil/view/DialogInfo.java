@@ -1,4 +1,4 @@
-package commanutil;
+package commanutil.view;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -27,11 +27,11 @@ import android.widget.Toast;
 
 import com.zhenbeiju.commanutil.R;
 
+import java.util.List;
+
 import commanutil.base.MyApplication;
 import commanutil.utl.LogManager;
 import commanutil.utl.ScreenUtil;
-
-import java.util.List;
 
 
 public class DialogInfo {
@@ -52,11 +52,11 @@ public class DialogInfo {
      * @param msg
      */
 
-    public static void showLoadingDialog(Context context, String msg) {
-        showLoadingDialog(context, msg, null);
+    public static Dialog showLoadingDialog(Context context, String msg) {
+        return showLoadingDialog(context, msg, null);
     }
 
-    public static void showLoadingDialog(final Context context, String msg, final DialogInterface.OnCancelListener onCancelListener) {
+    public static Dialog showLoadingDialog(final Context context, String msg, final DialogInterface.OnCancelListener onCancelListener) {
         dismissLoadingDialog();
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.dialog_loading, null);// 得到加载view
@@ -77,7 +77,7 @@ public class DialogInfo {
         if (onCancelListener != null) {
             loadingdialog.setOnCancelListener(onCancelListener);
         }
-
+        return loadingdialog;
     }
 
 
