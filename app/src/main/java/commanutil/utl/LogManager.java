@@ -26,7 +26,9 @@ public class LogManager {
         TAG = tag;
         LogManager.logLevel = logLevel;
         mIsOutToFile = logToFile;
-
+        if (logLevel > Log.ASSERT) {
+            mIsOutLog = false;
+        }
     }
 
     private static boolean checkSdCardVaild() {
@@ -57,7 +59,7 @@ public class LogManager {
             outStream.write((log + "\n").getBytes());
             outStream.close();
         } catch (IOException e) {
-            printStackTrace(e, "LogManager", "OutputToFile");
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -123,23 +125,46 @@ public class LogManager {
         return mIsOutLog;
     }
 
+
+    public static void f(String objectName, String methodName) {
+        f(objectName, methodName, TAG_CALLED);
+
+    }
+
+    public static void f(String objectName, String methodName, String msg) {
+        if (mIsOutToFile) {
+            final String log = bulidTag(objectName, methodName) + msg;
+            Log.e(TAG, log);
+            outputToFile(log, mPath, true);
+        }
+
+    }
+
     /**
      * @param e          Exception
      * @param objectName ObjectName
      * @param methodName MethodName
      */
     public static void printStackTrace(Exception e, String objectName, String methodName) {
-        e(objectName, methodName, TAG_EXCEPTION);
-        e(objectName, methodName, e.toString());
-        e.printStackTrace();
-        outputToFile(e);
+        if (mIsOutLog && logLevel >= Log.WARN) {
+            e(objectName, methodName, TAG_EXCEPTION);
+            e(objectName, methodName, e.toString());
+            e.printStackTrace();
+            if (mIsOutToFile) {
+                outputToFile(e);
+            }
+        }
+
+
     }
 
     public static void printStackTrace() {
-        for (StackTraceElement e : Thread.currentThread().getStackTrace()) {
-            Log.e(TAG, e.getFileName() + "|" + e.getMethodName() + "|" + e.getLineNumber());
-        }
+        if (mIsOutLog && logLevel >= Log.WARN)
+            for (StackTraceElement e : Thread.currentThread().getStackTrace()) {
+                Log.e(TAG, e.getFileName() + "|" + e.getMethodName() + "|" + e.getLineNumber());
+            }
     }
+
 
     /**
      * @param objectName ObjectName
@@ -147,14 +172,8 @@ public class LogManager {
      */
     public static void e(String objectName, String methodName) {
         e(objectName, methodName, TAG_CALLED);
-
     }
 
-
-    public static void f(String objectName, String methodName) {
-        f(objectName, methodName, TAG_CALLED);
-
-    }
 
     /**
      * @param objectName ObjectName
@@ -191,13 +210,14 @@ public class LogManager {
         i(objectName, methodName, TAG_CALLED);
     }
 
+
     /**
      * @param objectName ObjectName
      * @param methodName MethodName
      * @param msg        Message
      */
     public static void e(String objectName, String methodName, String msg) {
-        if (mIsOutLog) {
+        if (mIsOutLog && logLevel >= Log.ERROR) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.e(TAG, log);
             outputToFile(log);
@@ -205,19 +225,13 @@ public class LogManager {
     }
 
 
-    public static void f(String objectName, String methodName, String msg) {
-        final String log = bulidTag(objectName, methodName) + msg;
-        Log.e(TAG, log);
-        outputToFile(log, mPath, true);
-    }
-
     /**
      * @param objectName ObjectName
      * @param methodName MethodName
      * @param msg        Message
      */
     public static void w(String objectName, String methodName, String msg) {
-        if (mIsOutLog) {
+        if (mIsOutLog && logLevel >= Log.WARN) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.w(TAG, log);
             outputToFile(log);
@@ -231,7 +245,7 @@ public class LogManager {
      */
     public static void d(String objectName, String methodName, String msg) {
 
-        if (mIsOutLog) {
+        if (mIsOutLog && logLevel >= Log.DEBUG) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.d(TAG, log);
             outputToFile(log);
@@ -245,7 +259,7 @@ public class LogManager {
      * @param msg        Message
      */
     public static void v(String objectName, String methodName, String msg) {
-        if (mIsOutLog) {
+        if (mIsOutLog && logLevel > Log.VERBOSE) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.v(TAG, log);
             outputToFile(log);
@@ -259,7 +273,7 @@ public class LogManager {
      * @param msg        Message
      */
     public static void i(String objectName, String methodName, String msg) {
-        if (mIsOutLog) {
+        if (mIsOutLog && logLevel >= Log.INFO) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.i(TAG, log);
             outputToFile(log);
@@ -271,14 +285,17 @@ public class LogManager {
      */
 
     public static void printStackTrace(Throwable e) {
-        if (e != null) {
+        if (mIsOutLog && logLevel >= Log.WARN && e != null) {
             final String objectName = Thread.currentThread().getStackTrace()[3].getFileName();
             final String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
 
             e(objectName, methodName, TAG_EXCEPTION);
             e(objectName, methodName, e.toString());
             e.printStackTrace();
-            outputToFile(e);
+            if (mIsOutToFile) {
+                outputToFile(e);
+            }
+
         }
     }
 
@@ -289,8 +306,6 @@ public class LogManager {
         return bulidTag(objectName, methodName) + msg;
     }
 
-    // ID20120515002 liaoyixuan end
-
     /**
      * e
      * Print error log information
@@ -298,7 +313,7 @@ public class LogManager {
      * @param msg
      */
     public static void e(String msg) {
-        if (mIsOutLog) {
+        if (mIsOutLog && logLevel >= Log.ERROR) {
             String log = bulidTag(msg);
             int position = 0;
             while (position < log.length()) {
@@ -327,12 +342,10 @@ public class LogManager {
      * @param msg
      */
     public static void w(String msg) {
-        if (mIsOutLog) {
-            // ID20120515002 liaoyixuan begin
+        if (mIsOutLog && logLevel >= Log.WARN) {
             String log = bulidTag(msg);
             Log.w(TAG, log);
             outputToFile(log);
-            // ID20120515002 liaoyixuan end
         }
     }
 
@@ -344,12 +357,10 @@ public class LogManager {
      */
     public static void d(String msg) {
 
-        if (mIsOutLog) {
-            // ID20120515002 liaoyixuan begin
+        if (mIsOutLog && logLevel >= Log.DEBUG) {
             String log = bulidTag(msg);
             Log.d(TAG, log);
-            // outputToFile(log);
-            // ID20120515002 liaoyixuan end
+            outputToFile(log);
         }
     }
 
@@ -360,12 +371,10 @@ public class LogManager {
      * @param msg
      */
     public static void v(String msg) {
-        if (mIsOutLog) {
-            // ID20120515002 liaoyixuan begin
+        if (mIsOutLog && logLevel >= Log.VERBOSE) {
             String log = bulidTag(msg);
             Log.v(TAG, log);
-            // outputToFile(log);
-            // ID20120515002 liaoyixuan end
+            outputToFile(log);
         }
     }
 
@@ -374,12 +383,10 @@ public class LogManager {
      * msg String message
      */
     public static void i(String msg) {
-        if (mIsOutLog) {
-            // ID20120515002 liaoyixuan begin
+        if (mIsOutLog && logLevel >= Log.INFO) {
             String log = bulidTag(msg);
             Log.i(TAG, log);
-            // outputToFile(log);
-            // ID20120515002 liaoyixuan end
+            outputToFile(log);
         }
     }
 

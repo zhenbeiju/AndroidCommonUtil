@@ -8,9 +8,11 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.RequestFuture;
+import com.zhenbeiju.commanutil.R;
 
 import org.json.JSONObject;
 
+import commanutil.base.MyApplication;
 import commanutil.utl.LogManager;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -65,17 +67,19 @@ public class IOnRequsetDone<T> {
                     errorjson = new JSONObject(errorbody);
                 } else {
                     if (error instanceof TimeoutError) {
-                        errorjson = new JSONObject("{error:TimeoutError}");
+                        errorjson = new JSONObject(String.format("{error:%s}", MyApplication.context.getResources().getString(R.string.error_timeout)));
                     } else if (error instanceof ParseError) {
-                        errorjson = new JSONObject("{error:ParseError}");
+                        errorjson = new JSONObject(String.format("{error:%s}", MyApplication.context.getResources().getString(R.string.error_parse)));
                     } else if (error instanceof RedirectError) {
-                        errorjson = new JSONObject("{error:RedirectError}");
+                        errorjson = new JSONObject(String.format("{error:%s}", MyApplication.context.getResources().getString(R.string.error_redirect)));
                     } else if (error instanceof AuthFailureError) {
-                        errorjson = new JSONObject("{error:AuthFailureError}");
+                        errorjson = new JSONObject(String.format("{error:%s}", MyApplication.context.getResources().getString(R.string.error_authfail)));
                     } else if (error instanceof NetworkError) {
-                        errorjson = new JSONObject("{error:TimeoutError}");
+                        errorjson = new JSONObject(String.format("{error:%s}", MyApplication.context.getResources().getString(R.string.error_network)));
                     } else if (error instanceof ServerError) {
-                        errorjson = new JSONObject("{error:TimeoutError}");
+                        errorjson = new JSONObject(String.format("{error:%s}", MyApplication.context.getResources().getString(R.string.error_server)));
+                    } else {
+                        errorjson = new JSONObject(String.format("{error:%s}", MyApplication.context.getResources().getString(R.string.error_unknown)));
                     }
                 }
             } catch (Exception e1) {

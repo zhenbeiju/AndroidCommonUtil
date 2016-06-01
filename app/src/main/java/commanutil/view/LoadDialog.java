@@ -19,11 +19,11 @@ public class LoadDialog<T> {
         this.context = context;
     }
 
-    public Observable showLoadDialog(final Observable<T> observable) {
+    public Observable<T> showLoadDialog(final Observable<T> observable) {
         return showLoadDialog(observable, "loading");
     }
 
-    public Observable showLoadDialog(final Observable<T> observable, String msg) {
+    public Observable<T> showLoadDialog(final Observable<T> observable, String msg) {
         final Dialog dialog = DialogInfo.showLoadingDialog(context, msg, new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {

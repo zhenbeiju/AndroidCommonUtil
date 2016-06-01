@@ -6,4 +6,14 @@
     <string name="no_available_data">no available data</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+
+    <string name="error_timeout">TimeoutError</string>
+
+    <string name="error_parse">ParseError</string>
+    <string name="error_redirect">RedirectError</string>
+    <string name="error_authfail">AuthFailureError</string>
+    <string name="error_network">NetworkError</string>
+    <string name="error_server">ServerError</string>
+    <string name="error_unknown">UnkownError</string>
+
 </resources>
