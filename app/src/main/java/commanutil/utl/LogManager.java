@@ -146,7 +146,7 @@ public class LogManager {
      * @param methodName MethodName
      */
     public static void printStackTrace(Exception e, String objectName, String methodName) {
-        if (mIsOutLog && logLevel >= Log.WARN) {
+        if (mIsOutLog && logLevel <= Log.WARN) {
             e(objectName, methodName, TAG_EXCEPTION);
             e(objectName, methodName, e.toString());
             e.printStackTrace();
@@ -159,7 +159,7 @@ public class LogManager {
     }
 
     public static void printStackTrace() {
-        if (mIsOutLog && logLevel >= Log.WARN)
+        if (mIsOutLog && logLevel <= Log.WARN)
             for (StackTraceElement e : Thread.currentThread().getStackTrace()) {
                 Log.e(TAG, e.getFileName() + "|" + e.getMethodName() + "|" + e.getLineNumber());
             }
@@ -217,7 +217,7 @@ public class LogManager {
      * @param msg        Message
      */
     public static void e(String objectName, String methodName, String msg) {
-        if (mIsOutLog && logLevel >= Log.ERROR) {
+        if (mIsOutLog && logLevel <= Log.ERROR) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.e(TAG, log);
             outputToFile(log);
@@ -231,7 +231,7 @@ public class LogManager {
      * @param msg        Message
      */
     public static void w(String objectName, String methodName, String msg) {
-        if (mIsOutLog && logLevel >= Log.WARN) {
+        if (mIsOutLog && logLevel <= Log.WARN) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.w(TAG, log);
             outputToFile(log);
@@ -245,7 +245,7 @@ public class LogManager {
      */
     public static void d(String objectName, String methodName, String msg) {
 
-        if (mIsOutLog && logLevel >= Log.DEBUG) {
+        if (mIsOutLog && logLevel <= Log.DEBUG) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.d(TAG, log);
             outputToFile(log);
@@ -273,7 +273,7 @@ public class LogManager {
      * @param msg        Message
      */
     public static void i(String objectName, String methodName, String msg) {
-        if (mIsOutLog && logLevel >= Log.INFO) {
+        if (mIsOutLog && logLevel <= Log.INFO) {
             final String log = bulidTag(objectName, methodName) + msg;
             Log.i(TAG, log);
             outputToFile(log);
@@ -285,7 +285,7 @@ public class LogManager {
      */
 
     public static void printStackTrace(Throwable e) {
-        if (mIsOutLog && logLevel >= Log.WARN && e != null) {
+        if (mIsOutLog && logLevel <= Log.WARN && e != null) {
             final String objectName = Thread.currentThread().getStackTrace()[3].getFileName();
             final String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
 
@@ -313,7 +313,7 @@ public class LogManager {
      * @param msg
      */
     public static void e(String msg) {
-        if (mIsOutLog && logLevel >= Log.ERROR) {
+        if (mIsOutLog && logLevel <= Log.ERROR) {
             String log = bulidTag(msg);
             int position = 0;
             while (position < log.length()) {
@@ -342,7 +342,7 @@ public class LogManager {
      * @param msg
      */
     public static void w(String msg) {
-        if (mIsOutLog && logLevel >= Log.WARN) {
+        if (mIsOutLog && logLevel <= Log.WARN) {
             String log = bulidTag(msg);
             Log.w(TAG, log);
             outputToFile(log);
@@ -357,7 +357,7 @@ public class LogManager {
      */
     public static void d(String msg) {
 
-        if (mIsOutLog && logLevel >= Log.DEBUG) {
+        if (mIsOutLog && logLevel <= Log.DEBUG) {
             String log = bulidTag(msg);
             Log.d(TAG, log);
             outputToFile(log);
@@ -371,7 +371,7 @@ public class LogManager {
      * @param msg
      */
     public static void v(String msg) {
-        if (mIsOutLog && logLevel >= Log.VERBOSE) {
+        if (mIsOutLog && logLevel <= Log.VERBOSE) {
             String log = bulidTag(msg);
             Log.v(TAG, log);
             outputToFile(log);
@@ -383,7 +383,7 @@ public class LogManager {
      * msg String message
      */
     public static void i(String msg) {
-        if (mIsOutLog && logLevel >= Log.INFO) {
+        if (mIsOutLog && logLevel <= Log.INFO) {
             String log = bulidTag(msg);
             Log.i(TAG, log);
             outputToFile(log);
