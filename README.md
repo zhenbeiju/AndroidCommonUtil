@@ -1,6 +1,7 @@
 #Android Common util#
    gradle use:
 >       compile 'com.zhenbeiju:app:1.1.4'
+
 ## MyApplication ##
   you must extend MyApplication,and set name in Manifest.
 
