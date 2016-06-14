@@ -40,9 +40,9 @@
 ## IOnRequsetDone
    convert a Volley request call back to Rxjava's observer
 ### useage ###
-   IOnRequsetDone<T> onrequestDone = new IOnRequsetDone();
-   VolleyQuene.add(new JsonobjectRequest(url,onrequestDone.listener,onrequestDone.errorlisten))
-   Observer<T> ob = onrequestDone.getObservable();
+   `IOnRequsetDone<T> onrequestDone = new IOnRequsetDone();`
+   `VolleyQuene.add(new JsonobjectRequest(url,onrequestDone.listener,onrequestDone.errorlisten))`
+   `Observer<T> ob = onrequestDone.getObservable();`
 
 
 
