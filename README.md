@@ -1,9 +1,32 @@
 #Android Common util#
    gradle use:
 >       compile 'com.zhenbeiju:app:1.1.4'
+## MyApplication ##
+  you must extend MyApplication,and set name in Manifest.
 
- ## LogManager ##
-       Easy manager Log print, And print in a pretty style
+  MyApplication  init something in onCreate,
+
+### use ###
+  `MyApplication.mBaseContext.getPref*(key)`
+
+  `MyApplication.mBaseContext.setPref*(key,value)`
+
+  getter && setter Preferences Value Anywhere.
+
+  `MyApplication.mBaseContext.getGlobal*(key)`
+
+  `MyApplication.mBaseContext.setGlobal*(key,value)`
+
+  getter and setter temp Value in app life,
+
+
+  `MyApplication.mQueue.add(volleyrequest)`
+  `MyApplication.mHandler.post(Runable)`
+
+
+## LogManager ##
+
+   Easy manager Log print, And print in a pretty style
 ### init ###
 >      LogManager.initConfig(String tag, int logLevel, boolean logToFile)
 
