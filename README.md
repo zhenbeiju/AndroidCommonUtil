@@ -1,16 +1,50 @@
 #Android Common util#
    gradle use:
->       compile 'com.zhenbeiju:app:1.1.3'
+>       compile 'com.zhenbeiju:app:1.1.4'
 
-MostUse:
-  1. LogManager </br>
-       print log as this: '[TasksDB.java|mappingCursorToList]listsize 8'
-       auto print Class name and Method name,easy to find out where the log from
-  2. IOnRequestDone </br>
-       User Volley And Rx.java
-  3. DialogInfo </br>
-       show a loading Dialog and a Toast
-  4. StringUtil </br>
-        easy check string format
+ ## LogManager ##
+       Easy manager Log print, And print in a pretty style
+### init ###
+>      LogManager.initConfig(String tag, int logLevel, boolean logToFile)
+
+    tag: log tag
+    logLevel: like Log.Error ,just print log bigger then you set
+    logToFile: save log to a file,file path is '/sdcard/log.txt'
+
+   you should init LogManager in your Application's onCreate
+
+### use ###
+    `LogManager.e("log you want print");`
+    `LogManager.w("Log you want print");`
+
+### result ###
+     [className|methodName]'logcontent'
+
+
+## DialogInfo ##
+   Easy way to show dialog with custom view, with one button, two button
+     listview in a dialog ...
+### use
+   `DialogInfo.showLoadingDialog(Context context, String msg)`
+
+   show a loading dialog with a custom notice
+
+   `DialogInfo.showProgressDialog(final Context context, final String msg, final DialogInterface.OnCancelListener onCancelListener) `
+
+   show a loading dialog with a custom notice & a on OnCancelListener
+
+   `DialogInfo.showCustomView(Context Context, View v, String title)`
+
+   show a dialog with custom view
+
+## IOnRequsetDone
+   convert a Volley request call back to Rxjava's observer
+### useage ###
+   IOnRequsetDone<T> onrequestDone = new IOnRequsetDone();
+   VolleyQuene.add(new JsonobjectRequest(url,onrequestDone.listener,onrequestDone.errorlisten))
+   Observer<T> ob = onrequestDone.getObservable();
+
+
+
 
 
