@@ -2,12 +2,10 @@ package commanutil.utl.net;
 
 import android.text.TextUtils;
 
-import commanutil.utl.EnCodingUtil;
-
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
-//import com.example.leadondemo.LoginActivity;
 
 /**
  * 数据类型转换
@@ -131,6 +129,7 @@ public class NetDataTypeTransform {
                 count = inStream.available();
             }
         }
+
         byte[] b = null;
         if (count > 2048) {
             b = new byte[2048];
@@ -139,6 +138,7 @@ public class NetDataTypeTransform {
                 b = new byte[count];
             }
         }
+
         if (null != b) {
             inStream.read(b);
         }
@@ -158,9 +158,20 @@ public class NetDataTypeTransform {
             resulte[j] = (byte) Integer.parseInt(info, 16);
             // LogManager.e((byte) Integer.parseInt(info, 16) + "");
         }
-
         return resulte;
     }
+
+    public static byte[] mergeByte(byte[] bytes1, byte[] bytes2) {
+        byte[] result = new byte[bytes1.length + bytes2.length];
+        System.arraycopy(bytes1, 0, result, 0, bytes1.length);
+        System.arraycopy(bytes2, 0, result, bytes1.length, bytes2.length);
+        return result;
+    }
+
+    public static byte[] mergeByte(byte[] bytes1, byte[] bytes2, byte[] bytes3) {
+        return mergeByte(mergeByte(bytes1, bytes2), bytes3);
+    }
+
 
     public static String BytesToIntString(byte[] values) {
         StringBuilder s = new StringBuilder();
@@ -184,8 +195,8 @@ public class NetDataTypeTransform {
 
     }
 
-    public static String String2Utf8(String value) {
-        return EnCodingUtil.getUtfString(value);
+    public static String String2Utf8(String value) throws UnsupportedEncodingException {
+        return URLEncoder.encode(value, "utf-8");
     }
 
 }
