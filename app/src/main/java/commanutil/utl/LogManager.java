@@ -18,7 +18,7 @@ public class LogManager {
     public static boolean mIsOutLog = true;
     public static boolean DEBUG_MODE = true;
     private static boolean mIsOutToFile = false;
-    private static String mPath = "/sdcard/shahomelog.txt";
+    private static String mPath = "/sdcard/log.txt";
     private static int logLevel;
 
 
