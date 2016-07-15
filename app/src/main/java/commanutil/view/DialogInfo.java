@@ -29,7 +29,7 @@ import com.zhenbeiju.commanutil.R;
 
 import java.util.List;
 
-import commanutil.base.MyApplication;
+import commanutil.base.BaseApplication;
 import commanutil.utl.LogManager;
 import commanutil.utl.ScreenUtil;
 
@@ -115,7 +115,7 @@ public class DialogInfo {
 
 
         // 创建自定义样式dialog
-        MyApplication.mHandler.post(new Runnable() {
+        BaseApplication.mHandler.post(new Runnable() {
             @Override
             public void run() {
                 dialogCreate = new Dialog(context, R.style.custom_dialog);
@@ -185,29 +185,27 @@ public class DialogInfo {
         dismissDialog();
     }
 
-    public static void showOneBtnDialog(Context context, String strmsg, String title) {
+    public static void showOneBtnDialog(Context context, String title, String strmsg) {
         showOneBtnDialog(context, strmsg, title, null);
     }
 
-    public static void showOneBtnDialog(Context context, String strmsg, String title, DialogInterface.OnClickListener onClickListener) {
-        showOneBtnDialog(context, strmsg, title, null, null);
+    public static void showOneBtnDialog(Context context, String title, String strmsg, DialogInterface.OnClickListener onClickListener) {
+        showOneBtnDialog(context, strmsg, title, onClickListener, null);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static void showOneBtnDialog(Context context, String strmsg, String title, DialogInterface.OnClickListener onClickListener, DialogInterface.OnDismissListener onDismissListener) {
+    public static Dialog showOneBtnDialog(Context context, String title, String strmsg, DialogInterface.OnClickListener onClickListener, DialogInterface.OnDismissListener onDismissListener) {
         dismissDialog();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title).setMessage(strmsg)
                 .setPositiveButton(R.string.confirm, onClickListener).setOnDismissListener(onDismissListener);
         dialog = builder.create();
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
+        return dialog;
     }
 
-    public static void showSelectDialog(final String[] strs, String title, Context context) {
+
+    public static Dialog showSelectDialog(Context context, final String[] strs, String title) {
         dismissDialog();
         posSelect = 0;
         dialog = new AlertDialog.Builder(context).setTitle(title)
@@ -218,6 +216,7 @@ public class DialogInfo {
                     }
                 }).setPositiveButton(R.string.confirm, null).setNeutralButton(R.string.cancel, null).create();
         dialog.show();
+        return dialog;
     }
 
     public static Dialog showCustomView(Context Context, View v, String title) {
@@ -231,7 +230,7 @@ public class DialogInfo {
         LinearLayout layout = (LinearLayout) viewcontaine.findViewById(R.id.viewcontainer);
         layout.addView(v);
 
-        MyApplication.mHandler.post(new Runnable() {
+        BaseApplication.mHandler.post(new Runnable() {
             @Override
             public void run() {
                 dialogCreate = new Dialog(context, R.style.custom_dialog);
@@ -250,7 +249,7 @@ public class DialogInfo {
 
     public static Dialog showCustomViewSelf(final Context context, final View v, final DialogInterface.OnCancelListener onCancelListener) {
 
-        MyApplication.mHandler.post(new Runnable() {
+        BaseApplication.mHandler.post(new Runnable() {
             @Override
             public void run() {
                 dialogCreate = new Dialog(context, R.style.custom_dialog);
@@ -266,92 +265,79 @@ public class DialogInfo {
         return dialog;
     }
 
-    public static void showTwoBtnDialog(String strmsg, Context context, DialogInterface.OnClickListener confirm, DialogInterface.OnClickListener cancle) {
+    public static Dialog showTwoBtnDialog(Context context, String strmsg, DialogInterface.OnClickListener confirm, DialogInterface.OnClickListener cancle) {
         dismissDialog();
-        dialog = new AlertDialog.Builder(context).setTitle("Notice").setMessage(strmsg).setPositiveButton(MyApplication.context.getString(R.string.confirm), confirm)
-                .setNegativeButton(MyApplication.context.getString(R.string.cancel), cancle).create();
+        dialog = new AlertDialog.Builder(context).setTitle("Notice").setMessage(strmsg).setPositiveButton(BaseApplication.context.getString(R.string.confirm), confirm)
+                .setNegativeButton(BaseApplication.context.getString(R.string.cancel), cancle).create();
 
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
+        return dialog;
     }
 
 
-    public static void showTwoBtnDialog(String title, String strmsg, Context context, DialogInterface.OnClickListener confirm, DialogInterface.OnClickListener cancle) {
+    public static Dialog showTwoBtnDialog(Context context, String title, String strmsg, DialogInterface.OnClickListener confirm, DialogInterface.OnClickListener cancle) {
         dismissDialog();
-        dialog = new AlertDialog.Builder(context).setTitle(title).setMessage(strmsg).setPositiveButton(MyApplication.context.getString(R.string.confirm), confirm)
-                .setNegativeButton(MyApplication.context.getString(R.string.cancel), cancle).create();
+        dialog = new AlertDialog.Builder(context).setTitle(title).setMessage(strmsg).setPositiveButton(BaseApplication.context.getString(R.string.confirm), confirm)
+                .setNegativeButton(BaseApplication.context.getString(R.string.cancel), cancle).create();
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
+        return dialog;
     }
 
 
-    public static AlertDialog showTwoBtnDialog(String title, String strmsg, Context context, DialogInterface.OnClickListener confirm, final DialogInterface.OnClickListener cancle, String cancleString, String confirmString) {
+    public static AlertDialog showTwoBtnDialog(Context context, String title, String strmsg, DialogInterface.OnClickListener confirm, final DialogInterface.OnClickListener cancle, String cancleString, String confirmString) {
         dismissDialog();
         dialog = new AlertDialog.Builder(context).setTitle(title).setMessage(strmsg).setPositiveButton(confirmString, confirm)
                 .setNegativeButton(cancleString, cancle).create();
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
         return dialog;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static void showTwoBtnDialog(String title, String strmsg, Context context, DialogInterface.OnClickListener confirm, DialogInterface.OnDismissListener cancle, String cancleString, String confirmString) {
+    public static Dialog showTwoBtnDialog(Context context, String title, String strmsg, DialogInterface.OnClickListener confirm, DialogInterface.OnDismissListener cancle, String cancleString, String confirmString) {
         dismissDialog();
         dialog = new AlertDialog.Builder(context).setTitle(title).setMessage(strmsg).setPositiveButton(confirmString, confirm)
                 .setNegativeButton(cancleString, null).setOnDismissListener(cancle).create();
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
+        return dialog;
     }
 
-    public static AlertDialog showTwoBtnDialog(Context context, DialogInterface.OnClickListener confirm, DialogInterface.OnClickListener cancle, View view, String title) {
+    public static AlertDialog showTwoBtnDialog(Context context, String title, View view, DialogInterface.OnClickListener confirm, DialogInterface.OnClickListener cancle) {
         dismissDialog();
-        dialog = new AlertDialog.Builder(context).setTitle(title).setPositiveButton(MyApplication.context.getString(R.string.confirm), confirm)
-                .setNegativeButton(MyApplication.context.getString(R.string.cancel), cancle).setView(view).create();
+        dialog = new AlertDialog.Builder(context).setTitle(title).setPositiveButton(BaseApplication.context.getString(R.string.confirm), confirm)
+                .setNegativeButton(BaseApplication.context.getString(R.string.cancel), cancle).setView(view).create();
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
+        return dialog;
+    }
+
+    public static AlertDialog showOneBtnDialog(Context context, String title, View view, DialogInterface.OnClickListener confirm) {
+        dismissDialog();
+        dialog = new AlertDialog.Builder(context).setTitle(title).setPositiveButton(BaseApplication.context.getString(R.string.confirm), confirm)
+                .setView(view).create();
+        dialog.show();
         return dialog;
     }
 
 
     public static AlertDialog showThreeBtnDialog(Context context, DialogInterface.OnClickListener confirm, DialogInterface.OnClickListener middle, DialogInterface.OnClickListener cancle, View view, String title, String middleInfo) {
         dismissDialog();
-        dialog = new AlertDialog.Builder(context).setTitle(title).setPositiveButton(MyApplication.context.getString(R.string.confirm), confirm)
-                .setNegativeButton(MyApplication.context.getString(R.string.cancel), cancle).setNeutralButton(middleInfo, middle).setView(view).create();
+        dialog = new AlertDialog.Builder(context).setTitle(title).setPositiveButton(BaseApplication.context.getString(R.string.confirm), confirm)
+                .setNegativeButton(BaseApplication.context.getString(R.string.cancel), cancle).setNeutralButton(middleInfo, middle).setView(view).create();
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
         return dialog;
     }
 
 
     public static void showToast(final String text) {
         LogManager.e(text);
-        MyApplication.mHandler.post(new Runnable() {
+        BaseApplication.mHandler.post(new Runnable() {
 
             @Override
             public void run() {
-                final View view = LayoutInflater.from(MyApplication.context).inflate(R.layout.common_toast_alert, null);
+                final View view = LayoutInflater.from(BaseApplication.context).inflate(R.layout.common_toast_alert, null);
                 TextView tv = (TextView) view.findViewById(R.id.toast_text);
                 tv.setText(text);
 
-                toast = new Toast(MyApplication.context);
+                toast = new Toast(BaseApplication.context);
                 toast.setDuration(Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, ScreenUtil.dip2px(120));
                 toast.setView(view);
@@ -365,20 +351,17 @@ public class DialogInfo {
         });
     }
 
-    public static void showListDialog(Context context, String title, final List<String> commands, DialogInterface.OnClickListener onClickListener) {
+    public static Dialog showListDialog(Context context, String title, final List<String> commands, DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         String[] valuse = commands.toArray(new String[commands.size()]);
         builder.setItems(valuse, onClickListener);
         AlertDialog dialog = builder.create();
         dialog.show();
-        int titleDividerId = context.getResources().getIdentifier("titleDivider", "id", "android");
-        View titleDivider = dialog.findViewById(titleDividerId);
-        if (titleDivider != null)
-            titleDivider.setBackgroundColor(context.getResources().getColor(R.color.purple));
+        return dialog;
     }
 
-    public static void showListDialog(Context context, String title, BaseAdapter adapter, final IOnPositionGot listen) {
+    public static Dialog showListDialog(Context context, String title, BaseAdapter adapter, final IOnPositionGot listen) {
 
         ListView dialogview = (ListView) LayoutInflater.from(context).inflate(R.layout.list, null);// 得到加载view
 
@@ -394,11 +377,11 @@ public class DialogInfo {
                 dismissDialog();
             }
         });
-
+        return dialog;
     }
 
 
-    public static void showPickNumberDialog(Context context, final int minNumber, final int maxNumber, final IOnPositionGot onPositionGot, String title, String notice) {
+    public static Dialog showPickNumberDialog(Context context, final int minNumber, final int maxNumber, final IOnPositionGot onPositionGot, String title, String notice) {
         View v = LayoutInflater.from(context).inflate(R.layout.dialog_picknumber, null);
         TextView noticeTV = (TextView) v.findViewById(R.id.notice);
         noticeTV.setText(notice);
@@ -432,18 +415,13 @@ public class DialogInfo {
             }
         });
 
-        showTwoBtnDialog(context, new DialogInterface.OnClickListener() {
+        return showOneBtnDialog(context, title, v, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 int number = Integer.valueOf(et.getText().toString());
                 onPositionGot.onPositonGet(number);
             }
-        }, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                onPositionGot.onPositonGet(-1);
-            }
-        }, v, title);
+        });
 
     }
 

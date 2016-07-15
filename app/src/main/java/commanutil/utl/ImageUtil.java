@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import commanutil.base.MyApplication;
+import commanutil.base.BaseApplication;
 
 /**
  * Created by zhanglin on 4/19/16.
@@ -46,7 +46,7 @@ public class ImageUtil {
         Paint paint = new Paint();
         paint.setDither(true);
         canvas.drawBitmap(bitmap, new Rect(0, 0, (int) inwidth, (int) inheight), new Rect(0, 0, outwidth, outheight), paint);
-        File outFile = new File(MyApplication.context.getCacheDir(), file.getName());
+        File outFile = new File(BaseApplication.context.getCacheDir(), file.getName());
         FileOutputStream outputStream = new FileOutputStream(outFile);
         outbitmap.compress(compressFormat, 80, outputStream);
         outputStream.flush();

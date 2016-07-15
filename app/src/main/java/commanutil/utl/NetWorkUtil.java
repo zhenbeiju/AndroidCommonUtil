@@ -6,7 +6,7 @@ import android.net.DhcpInfo;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import commanutil.base.MyApplication;
+import commanutil.base.BaseApplication;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -104,8 +104,8 @@ public class NetWorkUtil {
      */
     public static String getLocalIpAddress() {
         String networkadd = "";
-        if (!StringUtil.isEmpty(MyApplication.mBaseContext.getGlobalString("networkadd"))) {
-            return MyApplication.mBaseContext.getGlobalString("networkadd");
+        if (!StringUtil.isEmpty(BaseApplication.mBaseContext.getGlobalString("networkadd"))) {
+            return BaseApplication.mBaseContext.getGlobalString("networkadd");
         } else {
             try {
                 String tempIp = null;
@@ -117,7 +117,7 @@ public class NetWorkUtil {
                         if (!inetAddress.isLoopbackAddress()) {
                             String HostAdd = inetAddress.getHostAddress().toString();
                             if (!StringUtil.isEmpty(HostAdd) && !HostAdd.equals("::1")) {
-                                MyApplication.mBaseContext.setGlobalString("networkadd", HostAdd);
+                                BaseApplication.mBaseContext.setGlobalString("networkadd", HostAdd);
                                 return HostAdd;
                             }
                         }
@@ -134,7 +134,7 @@ public class NetWorkUtil {
     }
 
     public static String getWIfiGatewayIp() {
-        android.net.wifi.WifiManager wm = (android.net.wifi.WifiManager) MyApplication.context.getSystemService(Context.WIFI_SERVICE);
+        android.net.wifi.WifiManager wm = (android.net.wifi.WifiManager) BaseApplication.context.getSystemService(Context.WIFI_SERVICE);
         DhcpInfo di = wm.getDhcpInfo();
         long getewayIpL = di.gateway;
         String getwayIpS = long2ip(getewayIpL);//网关地址

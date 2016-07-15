@@ -23,17 +23,29 @@ public class NormalActivity extends BaseActivity {
         String classname = getIntent().getStringExtra("classname");
         boolean hasobj = getIntent().getBooleanExtra("HasObj", false);
         Object data = null;
+        Object data2 = null;
         if (hasobj) {
             String key = getIntent().getStringExtra("key");
-            data = MyApplication.mBaseContext.getGlobalObject(key);
-            MyApplication.mBaseContext.setGlobalObject(key, null);
+            data = BaseApplication.mBaseContext.getGlobalObject(key);
+            BaseApplication.mBaseContext.setGlobalObject(key, null);
+
+            if (getIntent().hasExtra("key2")) {
+                String key2 = getIntent().getStringExtra("key2");
+                data2 = BaseApplication.mBaseContext.getGlobalObject(key2);
+                BaseApplication.mBaseContext.setGlobalObject(key2, null);
+            }
         }
 
         try {
             Object object = Class.forName(classname).newInstance();
             BaseFragment fragment = (BaseFragment) object;
-            if (data != null) {
-                fragment.setData(data);
+            if (data != null || data2 != null) {
+                if (data2 != null) {
+                    fragment.setData(data, data2);
+                } else {
+                    fragment.setData(data);
+                }
+
             }
             changeFragment(fragment);
         } catch (ClassNotFoundException e) {

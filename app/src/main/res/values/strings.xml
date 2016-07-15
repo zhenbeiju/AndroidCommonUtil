@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name">CommandUtil</string>
     <string name="processing">Processing</string>
     <string name="date_initing_wait">please wait...</string>
     <string name="no_available_data">no available data</string>

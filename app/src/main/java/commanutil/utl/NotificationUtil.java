@@ -9,7 +9,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.zhenbeiju.commanutil.R;
-import commanutil.base.MyApplication;
+import commanutil.base.BaseApplication;
 
 
 public class NotificationUtil {
@@ -20,7 +20,7 @@ public class NotificationUtil {
     public static NotificationUtil getInstance() {
         if (notificationUtil == null) {
             notificationUtil = new NotificationUtil();
-            notificationUtil.notificationManager = (NotificationManager) MyApplication.context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationUtil.notificationManager = (NotificationManager) BaseApplication.context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         return notificationUtil;
     }
@@ -41,7 +41,7 @@ public class NotificationUtil {
         if (drawableid == 0) {
             drawableid = R.mipmap.notify_normal;
         }
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(MyApplication.context).setDefaults(Notification.DEFAULT_ALL);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(BaseApplication.context).setDefaults(Notification.DEFAULT_ALL);
         builder.setContentTitle(title).setContentText(msg).setSmallIcon(drawableid);
         builder.setContentIntent(pendingIntent);
         builder.setTicker(msg);
@@ -59,7 +59,7 @@ public class NotificationUtil {
         if (drawableid == 0) {
             drawableid = R.mipmap.notify_error;
         }
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(MyApplication.context).setDefaults(Notification.DEFAULT_ALL);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(BaseApplication.context).setDefaults(Notification.DEFAULT_ALL);
         builder.setContentTitle(title).setContentText(msg).setSmallIcon(drawableid);
         builder.setContentIntent(pendingIntent);
         builder.setVibrate(new long[]{100, 500, 600, 500,});
@@ -73,7 +73,7 @@ public class NotificationUtil {
         if (drawableid == 0) {
             drawableid = R.mipmap.notify_warning;
         }
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(MyApplication.context).
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(BaseApplication.context).
                 setContentTitle(title).setContentText(title + msg).setSmallIcon(drawableid);
         builder.setContentIntent(pendingIntent);
         builder.setVibrate(new long[]{100, 100, 200, 100,});
@@ -83,7 +83,7 @@ public class NotificationUtil {
     }
 
     public void showProgress(String title, String msg, int drawableid, int id, int progress, PendingIntent pendingIntent) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MyApplication.context);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(BaseApplication.context);
         mBuilder.setContentTitle(title)
                 .setContentText(msg)
                 .setSmallIcon(drawableid);

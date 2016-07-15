@@ -11,7 +11,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-import commanutil.base.MyApplication;
+import commanutil.base.BaseApplication;
 
 
 /**
@@ -125,13 +125,13 @@ public class ScreenUtil {
 //    }
 
     public static int dip2px(float dipValue) {
-        final float scale = MyApplication.context.getResources().getDisplayMetrics().density;
+        final float scale = BaseApplication.context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 
 
     public static int px2dip( float pxValue) {
-        final float scale = MyApplication.context.getResources().getDisplayMetrics().density;
+        final float scale = BaseApplication.context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -155,7 +155,7 @@ public class ScreenUtil {
 
     //获取屏幕的宽度
     public static int getScreenWidth() {
-        WindowManager manager = (WindowManager) MyApplication.context
+        WindowManager manager = (WindowManager) BaseApplication.context
                 .getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         return display.getWidth();
@@ -163,7 +163,7 @@ public class ScreenUtil {
 
     //获取屏幕的高度
     public static int getScreenHeight() {
-        WindowManager manager = (WindowManager) MyApplication.context
+        WindowManager manager = (WindowManager) BaseApplication.context
                 .getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         return display.getHeight();

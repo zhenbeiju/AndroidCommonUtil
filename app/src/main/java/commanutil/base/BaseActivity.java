@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 
 import com.zhenbeiju.commanutil.R;
 
@@ -17,10 +18,10 @@ import lib.app.SwipeBackActivity;
  * Created by zhanglin on 5/23/16.
  */
 public class BaseActivity extends SwipeBackActivity {
-
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private SwipeBackLayout mSwipeBackLayout;
+    private BaseFragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class BaseActivity extends SwipeBackActivity {
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setScrimColor(Color.TRANSPARENT);
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+
     }
 
     @Override
@@ -46,6 +48,13 @@ public class BaseActivity extends SwipeBackActivity {
     }
 
 
+    public void changeFragment(BaseFragment frag) {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, frag);
+        fragmentTransaction.commitAllowingStateLoss();
+        currentFragment = frag;
+    }
+
     public void changeFragment(Fragment frag) {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, frag);
@@ -57,11 +66,21 @@ public class BaseActivity extends SwipeBackActivity {
      *
      * @param frag
      */
-    public void changeFragmentBack(Fragment frag) {
+    public void changeFragmentBack(BaseFragment frag) {
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, frag);
         fragmentTransaction.addToBackStack(frag.toString());
         fragmentTransaction.commitAllowingStateLoss();
+        currentFragment = frag;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (currentFragment != null && currentFragment.onKeyDown(keyCode, event)) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

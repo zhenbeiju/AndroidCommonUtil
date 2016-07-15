@@ -12,7 +12,7 @@ import commanutil.utl.IGloableHeap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyApplication extends Application implements IGloableHeap {
+public class BaseApplication extends Application implements IGloableHeap {
     public static BaseContext mBaseContext;
     public static Context context;
     public static Handler mHandler;
@@ -29,7 +29,7 @@ public class MyApplication extends Application implements IGloableHeap {
         return "";
     }
 
-    private static MyApplication myApplication;
+    private static BaseApplication myApplication;
 
     @Override
     public void onCreate() {
