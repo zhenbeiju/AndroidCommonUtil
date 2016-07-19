@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name">CommandUtil</string>
 
     <string name="processing">进行中</string>
     <string name="date_initing_wait">请稍等...</string>

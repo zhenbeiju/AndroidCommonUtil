@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 
 import com.zhenbeiju.commanutil.R;
 
+import commanutil.utl.LogManager;
 import lib.SwipeBackLayout;
 import lib.app.SwipeBackActivity;
 
@@ -83,5 +85,14 @@ public class BaseActivity extends SwipeBackActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        LogManager.e(item.getItemId() + "");
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

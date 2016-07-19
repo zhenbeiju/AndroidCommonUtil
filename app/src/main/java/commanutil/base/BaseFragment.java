@@ -27,6 +27,14 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    public String getStringTag() {
+        return name;
+    }
+
+    public void setStringTag(String tag) {
+        this.name = tag;
+    }
+
     /**
      * open fragment in a new activity
      *
