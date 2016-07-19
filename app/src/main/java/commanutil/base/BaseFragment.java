@@ -22,8 +22,8 @@ public class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (getActivity().getActionBar() != null && !StringUtil.isEmpty(name)) {
-            getActivity().getActionBar().setTitle(name);
+        if (((BaseActivity) getActivity()).getSupportActionBar() != null && !StringUtil.isEmpty(getStringTag())) {
+            ((BaseActivity) getActivity()).getSupportActionBar().setTitle(getStringTag());
         }
     }
 
