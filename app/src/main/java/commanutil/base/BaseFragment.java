@@ -44,8 +44,16 @@ public class BaseFragment extends Fragment {
         jumpToFragment(jumpClass.getName());
     }
 
+    public void jumpToFragment(Class jumpClass, Class target) {
+        jumpToFragment(jumpClass.getName(), target);
+    }
+
     public void jumpToFragment(Class jumpClass, Object object) {
         jumpToFragment(jumpClass.getName(), object);
+    }
+
+    public void jumpToFragment(Class jumpClass, Object object, Class target) {
+        jumpToFragment(jumpClass.getName(), object, target);
     }
 
     /**
@@ -54,7 +62,7 @@ public class BaseFragment extends Fragment {
      * @param classpath
      */
     public void jumpToFragment(String classpath) {
-        jumpToFragment(classpath, null);
+        jumpToFragment(classpath, null, null, getContext(), NormalActivity.class);
     }
 
 
@@ -62,32 +70,44 @@ public class BaseFragment extends Fragment {
         jumpToFragment(classpath, object, getContext());
     }
 
+    public void jumpToFragment(String classpath, Class targetClass) {
+        jumpToFragment(classpath, null, targetClass);
+    }
+
+    public void jumpToFragment(String classpath, Object object, Class targetClass) {
+        jumpToFragment(classpath, object, getContext(), null, targetClass);
+    }
+
     public void jumpToFragment(String classpath, Object object, Object object2) {
         jumpToFragment(classpath, object, object2, getContext());
+    }
+
+    public void jumpToFragment(String classpath, Object object, Object object2, Class target) {
+        jumpToFragment(classpath, object, object2, getContext(), target);
     }
 
     public void jumpToFragment(Class jumpClass, Object object, Object object2) {
         jumpToFragment(jumpClass.getName(), object, object2, getContext());
     }
 
+    public void jumpToFragment(Class jumpClass, Object object, Object object2, Class targetClass) {
+        jumpToFragment(jumpClass.getName(), object, object2, getContext(), targetClass);
+    }
+
 
     public static void jumpToFragment(String classpath, Object object, Context context) {
-        Intent i = new Intent();
-        i.putExtra("classname", classpath);
-        i.setClass(context, NormalActivity.class);
-        if (object != null) {
-            i.putExtra("HasObj", true);
-            String key = System.currentTimeMillis() + "";
-            i.putExtra("key", key);
-            BaseApplication.mBaseContext.setGlobalObject(key, object);
-        }
-        context.startActivity(i);
+        jumpToFragment(classpath, object, null, context);
     }
 
     public static void jumpToFragment(String classpath, Object object, Object object2, Context context) {
+        jumpToFragment(classpath, object, null, context, NormalActivity.class);
+    }
+
+
+    public static void jumpToFragment(String classpath, Object object, Object object2, Context context, Class targetClass) {
         Intent i = new Intent();
         i.putExtra("classname", classpath);
-        i.setClass(context, NormalActivity.class);
+        i.setClass(context, targetClass);
         if (object != null || object2 != null) {
             i.putExtra("HasObj", true);
             String key = System.currentTimeMillis() + "";
