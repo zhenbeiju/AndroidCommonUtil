@@ -75,7 +75,7 @@ public class BaseFragment extends Fragment {
     }
 
     public void jumpToFragment(String classpath, Object object, Class targetClass) {
-        jumpToFragment(classpath, object, getContext(), null, targetClass);
+        jumpToFragment(classpath, object, null, getContext(), targetClass);
     }
 
     public void jumpToFragment(String classpath, Object object, Object object2) {
@@ -100,7 +100,7 @@ public class BaseFragment extends Fragment {
     }
 
     public static void jumpToFragment(String classpath, Object object, Object object2, Context context) {
-        jumpToFragment(classpath, object, null, context, NormalActivity.class);
+        jumpToFragment(classpath, object, object2, context, NormalActivity.class);
     }
 
 
