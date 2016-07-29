@@ -32,6 +32,7 @@ import java.util.List;
 import commanutil.base.BaseApplication;
 import commanutil.utl.LogManager;
 import commanutil.utl.ScreenUtil;
+import commanutil.utl.StringUtil;
 
 
 public class DialogInfo {
@@ -418,8 +419,15 @@ public class DialogInfo {
         return showOneBtnDialog(context, title, v, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                int number = Integer.valueOf(et.getText().toString());
-                onPositionGot.onPositonGet(number);
+                try {
+                    if (!StringUtil.isEmpty(et.getText().toString())) {
+                        int number = Integer.valueOf(et.getText().toString());
+                        onPositionGot.onPositonGet(number);
+                    }
+                } catch (Exception e) {
+                    LogManager.printStackTrace(e);
+                }
+
             }
         });
 
