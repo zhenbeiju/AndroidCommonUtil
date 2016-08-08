@@ -2,6 +2,8 @@ package commanutil.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 
@@ -17,7 +19,13 @@ public class BaseFragment extends Fragment {
 
 
     protected String name;
+    protected boolean isInstaceavalib;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isInstaceavalib = true;
+    }
 
     @Override
     public void onResume() {
@@ -25,6 +33,12 @@ public class BaseFragment extends Fragment {
         if (((BaseActivity) getActivity()).getSupportActionBar() != null && !StringUtil.isEmpty(getStringTag())) {
             ((BaseActivity) getActivity()).getSupportActionBar().setTitle(getStringTag());
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        isInstaceavalib = false;
     }
 
     public String getStringTag() {

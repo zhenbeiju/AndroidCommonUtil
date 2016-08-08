@@ -15,7 +15,25 @@ import javax.net.ssl.SSLSocketFactory;
 /**
  * Created by zhanglin on 16/8/4.
  * http://www.chinaz.com/web/2015/0731/428907.shtml
- *
+ * KeyStore ks = KeyStore.getInstance("JKS");
+ * <p>
+ * // get user password and file input stream
+ * char[] password = ("mykspassword")).toCharArray();
+ * ClassLoader cl = this.getClass().getClassLoader();
+ * InputStream stream = cl.getResourceAsStream("myjks.jks");
+ * ks.load(stream, password);
+ * stream.close();
+ * <p>
+ * SSLContext sc = SSLContext.getInstance("TLS");
+ * KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+ * TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+ * <p>
+ * kmf.init(ks, password);
+ * tmf.init(ks);
+ * <p>
+ * sc.init(kmf.getKeyManagers(), tmf.getTrustManagers(),null);
+ * <p>
+ * return sc.getSocketFactory();
  */
 public class SelfSignsslOkhttpStack extends HurlStack {
     private OkHttpClient okHttpClient;
@@ -23,7 +41,6 @@ public class SelfSignsslOkhttpStack extends HurlStack {
 
 
     /**
-     *
      * @param socketFactoryMap
      */
     public SelfSignsslOkhttpStack(Map<String, SSLSocketFactory> socketFactoryMap) {
