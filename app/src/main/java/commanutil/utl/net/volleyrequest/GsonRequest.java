@@ -29,12 +29,6 @@ public class GsonRequest extends Request<JsonObject> {
     private Response.Listener<JsonObject> mListener;
     private final String mRequestBody;
 
-    /**
-     * Deprecated constructor for a GsonRequest which defaults to GET unless {@link #getPostBody()}
-     * or {@link #getPostParams()} is overridden (which defaults to POST).
-     *
-     * @deprecated Use {@link #GsonRequest(int, String, String, Response.Listener, Response.ErrorListener)}.
-     */
     public GsonRequest(String url, String mRequestBody, Response.Listener<JsonObject> listener,
                        Response.ErrorListener errorListener) {
         this(Method.DEPRECATED_GET_OR_POST, url, mRequestBody, listener, errorListener);
