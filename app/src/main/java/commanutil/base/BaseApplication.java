@@ -4,21 +4,19 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-
-import commanutil.utl.BaseContext;
-import commanutil.utl.IGloableHeap;
-import commanutil.utl.net.volleyrequest.OkHttpStack;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import commanutil.utl.BaseContext;
+import commanutil.utl.IGloableHeap;
 
 public class BaseApplication extends Application implements IGloableHeap {
     public static BaseContext mBaseContext;
     public static Context context;
     public static Handler mHandler;
-    public static RequestQueue mQueue;
+    public static OkHttpClient httpClient;
 
     private Map<String, Boolean> mGlobalBooleanMap = new HashMap<String, Boolean>();
     private Map<String, Integer> mGlobalIntMap = new HashMap<String, Integer>();
@@ -41,14 +39,11 @@ public class BaseApplication extends Application implements IGloableHeap {
         context = this;
         mHandler = new Handler();
         myApplication = this;
-        mQueue = Volley.newRequestQueue(getApplicationContext(), new OkHttpStack());
-        mQueue.start();
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        mQueue.cancelAll(context);
     }
 
     public static Application getInstance() {
