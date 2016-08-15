@@ -1,5 +1,7 @@
 package commanutil.utl.net;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
@@ -24,7 +26,18 @@ public class IOnRequsetDone<T> {
             @Override
             public void call(Subscriber<? super T> subscriber) {
                 try {
-                    Response response = BaseApplication.httpClient.newCall(builder.getReuest()).execute();
+                    Request request = builder.getReuest();
+                    OkHttpClient client;
+                    /**
+                     * use custom http client for ssl verify
+                     */
+                    if (request.isHttps()) {
+                        client = BaseApplication.okHttpClient(request.url().getHost());
+                    } else {
+                        client = BaseApplication.httpClient;
+                    }
+
+                    Response response = client.newCall(builder.getReuest()).execute();
                     if (response.code() != 200) {
                         T result = builder.parseResut(response.body().bytes());
                         subscriber.onNext(result);
@@ -39,8 +52,6 @@ public class IOnRequsetDone<T> {
                     subscriber.onError(e);
                 }
             }
-
-
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
         return observable;
     }

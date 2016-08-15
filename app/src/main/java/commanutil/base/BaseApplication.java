@@ -29,6 +29,8 @@ public class BaseApplication extends Application implements IGloableHeap {
         return "";
     }
 
+    private static HashMap<String, OkHttpClient> mHttpClients = new HashMap<>();
+
     private static BaseApplication myApplication;
 
     @Override
@@ -85,6 +87,14 @@ public class BaseApplication extends Application implements IGloableHeap {
     public Map<String, Boolean> getGlobalBooleanMap() {
         // TODO Auto-generated method stub
         return mGlobalBooleanMap;
+    }
+
+
+    public static OkHttpClient okHttpClient(String host) {
+        if (mHttpClients.containsKey(host)) {
+            return mHttpClients.get(host);
+        }
+        return httpClient;
     }
 
 }
