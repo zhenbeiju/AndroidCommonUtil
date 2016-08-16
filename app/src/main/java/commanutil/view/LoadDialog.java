@@ -43,7 +43,9 @@ public class LoadDialog<T> {
                     @Override
                     public void onError(Throwable e) {
                         subscriber.onError(e);
-                        dialog.dismiss();
+                        if (dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
                     }
 
                     @Override
