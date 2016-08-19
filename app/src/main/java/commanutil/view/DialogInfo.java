@@ -327,8 +327,11 @@ public class DialogInfo {
         return dialog;
     }
 
-
-    public static void showToast(final String text) {
+    /**
+     * @param text
+     * @param isLong 0 short 1 long
+     */
+    public static void showToast(final String text, final int isLong) {
         LogManager.e(text);
         BaseApplication.mHandler.post(new Runnable() {
 
@@ -339,17 +342,21 @@ public class DialogInfo {
                 tv.setText(text);
 
                 toast = new Toast(BaseApplication.context);
-                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setDuration(isLong);
                 toast.setGravity(Gravity.CENTER, 0, ScreenUtil.dip2px(120));
                 toast.setView(view);
                 toast.show();
 
                 Animation alpAnimation = new AlphaAnimation(0.1f, 1.0f);
-                alpAnimation.setDuration(Toast.LENGTH_SHORT);
+                alpAnimation.setDuration(100);
                 alpAnimation.setFillAfter(true);
                 view.startAnimation(alpAnimation);
             }
         });
+    }
+
+    public static void showToast(final String text) {
+        showToast(text, 0);
     }
 
     public static Dialog showListDialog(Context context, String title, final List<String> commands, DialogInterface.OnClickListener onClickListener) {
