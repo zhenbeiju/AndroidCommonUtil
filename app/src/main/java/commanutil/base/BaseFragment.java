@@ -19,18 +19,15 @@ public class BaseFragment extends Fragment {
 
 
     protected String name;
-    protected boolean isInstaceavalib;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isInstaceavalib = true;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        isInstaceavalib = true;
     }
 
     @Override
@@ -44,7 +41,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        isInstaceavalib = false;
     }
 
     public String getStringTag() {
