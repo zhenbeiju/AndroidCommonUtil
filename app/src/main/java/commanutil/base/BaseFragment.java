@@ -28,6 +28,12 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        isInstaceavalib = true;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (((BaseActivity) getActivity()).getSupportActionBar() != null && !StringUtil.isEmpty(getStringTag())) {

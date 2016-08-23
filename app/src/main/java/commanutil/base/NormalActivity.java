@@ -10,10 +10,18 @@ import com.zhenbeiju.commanutil.R;
  * Created by zhanglin on 5/23/16.
  */
 public class NormalActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+    }
+
+    protected void onCreate(Bundle savedInstanceState, boolean useDefaultLayout) {
+        super.onCreate(savedInstanceState);
+        if (useDefaultLayout) {
+            setContentView(R.layout.main);
+        }
     }
 
     @Override
@@ -45,7 +53,6 @@ public class NormalActivity extends BaseActivity {
                 } else {
                     fragment.setData(data);
                 }
-
             }
             changeFragment(fragment);
         } catch (ClassNotFoundException e) {
