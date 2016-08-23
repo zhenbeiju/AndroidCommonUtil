@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.zhenbeiju.commanutil.R;
+
 import commanutil.base.BaseApplication;
 
 
@@ -25,16 +26,6 @@ public class NotificationUtil {
         return notificationUtil;
     }
 
-//    /**
-//     * @param drawableId
-//     * @param flag
-//     */
-//    public void sendNotification(int drawableId, int flag, String title, String eventInfo, PendingIntent pendintIntent, int id) {
-//        Notification notification = new Notification(drawableId, title, System.currentTimeMillis());
-//        notification.setLatestEventInfo(mContext, title, eventInfo, pendintIntent);
-//        notificationManager.notify(id, notification);
-//    }
-
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void showMsg(String title, String msg, int id, int drawableid, PendingIntent pendingIntent) {
@@ -48,19 +39,20 @@ public class NotificationUtil {
         Notification notification = builder.build();
         notificationManager.notify(id, notification);
     }
+
     /**
      * @param title
      * @param msg
      * @param id
-     * @param drawableid
+     * @param drawableId
      * @param pendingIntent
      */
-    public void showError(String title, String msg, int id, int drawableid, PendingIntent pendingIntent) {
-        if (drawableid == 0) {
-            drawableid = R.mipmap.notify_error;
+    public void showError(String title, String msg, int id, int drawableId, PendingIntent pendingIntent) {
+        if (drawableId == 0) {
+            drawableId = R.mipmap.notify_error;
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(BaseApplication.context).setDefaults(Notification.DEFAULT_ALL);
-        builder.setContentTitle(title).setContentText(msg).setSmallIcon(drawableid);
+        builder.setContentTitle(title).setContentText(msg).setSmallIcon(drawableId);
         builder.setContentIntent(pendingIntent);
         builder.setVibrate(new long[]{100, 500, 600, 500,});
         builder.setTicker(msg);

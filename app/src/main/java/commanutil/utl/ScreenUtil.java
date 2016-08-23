@@ -1,9 +1,11 @@
 package commanutil.utl;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -15,7 +17,7 @@ import commanutil.base.BaseApplication;
 
 
 /**
- * @author Jerome.Hu. 屏幕控制。包括 1.屏幕亮度调整 2.去除锁屏。
+ * 屏幕控制。包括 1.屏幕亮度调整 2.去除锁屏。
  */
 public class ScreenUtil {
     /**
@@ -130,7 +132,7 @@ public class ScreenUtil {
     }
 
 
-    public static int px2dip( float pxValue) {
+    public static int px2dip(float pxValue) {
         final float scale = BaseApplication.context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
@@ -138,7 +140,7 @@ public class ScreenUtil {
 
     public static int getRelativeTop(View myView) {
 //	    if (myView.getParent() == myView.getRootView())
-        if(myView.getId() == android.R.id.content)
+        if (myView.getId() == android.R.id.content)
             return myView.getTop();
         else
             return myView.getTop() + getRelativeTop((View) myView.getParent());
@@ -146,7 +148,7 @@ public class ScreenUtil {
 
     public static int getRelativeLeft(View myView) {
 //	    if (myView.getParent() == myView.getRootView())
-        if(myView.getId() == android.R.id.content)
+        if (myView.getId() == android.R.id.content)
             return myView.getLeft();
         else
             return myView.getLeft() + getRelativeLeft((View) myView.getParent());

@@ -10,7 +10,7 @@ import java.net.URLEncoder;
 /**
  * 数据类型转换
  */
-public class NetDataTypeTransform {
+public class HexStringUtil {
 
     /**
      * 将int转为低字节在前，高字节在后的byte数组
@@ -52,6 +52,7 @@ public class NetDataTypeTransform {
 
     /**
      * 将byte数组转化成String
+     * utf-8 format
      */
     public static String ByteArraytoString(byte[] valArr) {
         String result = null;
@@ -74,6 +75,7 @@ public class NetDataTypeTransform {
 
     /**
      * 将String转化成byte数组
+     * utf-8 format
      *
      * @param str
      * @return
@@ -146,7 +148,7 @@ public class NetDataTypeTransform {
         return b;
     }
 
-    public static byte[] intStringToByte(String s) {
+    public static byte[] hexStringToByte(String s) {
         if (TextUtils.isEmpty(s)) {
             return new byte[0];
         }
@@ -173,7 +175,7 @@ public class NetDataTypeTransform {
     }
 
 
-    public static String BytesToIntString(byte[] values) {
+    public static String BytesToHexString(byte[] values) {
         StringBuilder s = new StringBuilder();
         for (byte b : values) {
             int i = 0xff & b;
@@ -186,14 +188,6 @@ public class NetDataTypeTransform {
         return s.toString();
     }
 
-    public static void main(String[] args) {
-        byte[] b = {62, -7, -97, -29, 1, -111, 0, 0, 0, 0, 0, 0, -116, 0, 0, 0, 1, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                4, 48, 120, 102, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 48,
-                120, 49, 50, 51, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-    }
 
     public static String String2Utf8(String value) throws UnsupportedEncodingException {
         return URLEncoder.encode(value, "utf-8");

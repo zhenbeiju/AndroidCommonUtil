@@ -1,7 +1,7 @@
 package commanutil.utl;
 
 
-import commanutil.utl.net.NetDataTypeTransform;
+import commanutil.utl.net.HexStringUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -14,7 +14,7 @@ public class MD5 {
             bytesOfMessage = s.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] thedigest = md.digest(bytesOfMessage);
-            String result = NetDataTypeTransform.BytesToIntString(thedigest).toUpperCase();
+            String result = HexStringUtil.BytesToHexString(thedigest).toUpperCase();
             return result;
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
             LogManager.printStackTrace(e);

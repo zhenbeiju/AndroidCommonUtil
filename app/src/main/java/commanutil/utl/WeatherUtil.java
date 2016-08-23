@@ -11,12 +11,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import commanutil.utl.callback.StringCallback;
+
 /**
  * Created by zhanglin on 15-9-6.
  */
 public class WeatherUtil {
     static final String url = "http://api.map.baidu.com/telematics/v3/weather?location=#location#&output=json&ak=cY2BqHyujRXzHDFgLgrg89iR";
 
+    /**
+     * get weather forcast ,just work in china
+     *
+     * @param cityName
+     * @param stringCallback
+     */
     public static void getWeather(final String cityName, final StringCallback stringCallback) {
         new Thread(new Runnable() {
             public void run() {

@@ -16,16 +16,10 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
- * @author Jerome.系统相关的工具类
  */
 public class SystemUtil {
     /**
@@ -79,11 +73,17 @@ public class SystemUtil {
         return "";
     }
 
+    /**
+     * get current versionInfo
+     *
+     * @param context
+     * @return
+     */
     public static int getVersionCode(Context context) {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             // 当前应用的版本名称
-            // String versionName = info.versionName;
+            String versionName = info.versionName;
 
             // 当前版本的版本号
             int versionCode = info.versionCode;
@@ -134,6 +134,12 @@ public class SystemUtil {
         return rti.get(0).topActivity;
     }
 
+    /**
+     * get launcher app
+     *
+     * @param context
+     * @return
+     */
     private static List<String> getHomes(Context context) {
         List<String> names = new ArrayList<String>();
         PackageManager packageManager = context.getPackageManager();
@@ -147,6 +153,13 @@ public class SystemUtil {
         return names;
     }
 
+    /**
+     * check if app installed
+     *
+     * @param context
+     * @param packageName
+     * @return
+     */
     public static boolean isInstallPackage(Context context, String packageName) {
         final PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
@@ -161,44 +174,5 @@ public class SystemUtil {
 
     }
 
-    public static void setSystemTime() {
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                try {
-                    URL url = new URL("http://www.bjtime.cn");
-                    URLConnection uc = url.openConnection();// 生成连接对象
-                    uc.connect(); // 发出连接
-                    long ld = uc.getDate(); // 取得网站日期时间
-                    LogManager.e(ld + "  " + System.currentTimeMillis());
-
-                    Calendar c = Calendar.getInstance();
-                    c.setTimeInMillis(ld);
-                    c.add(Calendar.HOUR_OF_DAY, 8);
-                    String time = c.get(Calendar.YEAR) + "" + String.format("%2s", c.get(Calendar.MONTH) + 1)
-                            + String.format("%2s", c.get(Calendar.DAY_OF_MONTH)) + "."
-                            + String.format("%2s", c.get(Calendar.HOUR_OF_DAY))
-                            + String.format("%2s", c.get(Calendar.MINUTE))
-                            + String.format("%2s", c.get(Calendar.SECOND));
-                    time = time.replaceAll(" ", "0");
-                    // System.out.println(time);
-                    LogManager.e(time);
-                    Runtime.getRuntime().exec("su -c setprop persist.sys.timezone GMT+08:00");
-                    Runtime.getRuntime().exec("su -c date -s" + time);
-                    LogManager.e(System.currentTimeMillis() + "");
-                } catch (MalformedURLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }
 
 }

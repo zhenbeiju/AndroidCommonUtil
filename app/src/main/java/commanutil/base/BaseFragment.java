@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 
 import java.util.Random;
 
+import commanutil.utl.LogManager;
 import commanutil.utl.StringUtil;
 
 
@@ -23,6 +24,11 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override

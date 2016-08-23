@@ -12,9 +12,9 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class AESUtil {
 
-    private static final String base64_key = "RrCjN1i5m1I6ufPllBsBnw==";
-    private static final String base64_iv = "At1kSTvetpT+telTVg1Rwg==";
-    private static final String characterEncoding = "UTF-8";
+    //    private static String base64_key = "RrCjN1i5m1I6ufPllBsBnw==";
+//    private static String base64_iv = "At1kSTvetpT+telTVg1Rwg==";
+//    private static final String characterEncoding = "UTF-8";
     private static final String cipherTransformation = "AES/CBC/PKCS5Padding";
     private static final String aesEncryptionAlgorithm = "AES";
 
@@ -31,13 +31,13 @@ public class AESUtil {
         return decrypt(Base64.decode(cipherText, 0), Base64.decode(key, 0), Base64.decode(initialVector, 0));
     }
 
-    public static String decrypt(String value) throws Exception {
-        return new String(decryptWithBase64(value, base64_key, base64_iv));
+    public static String decrypt(String value, String key, String initialVector) throws Exception {
+        return new String(decryptWithBase64(value, key, initialVector));
     }
 
     public static void main(String args[]) throws Exception {
-        byte[] clearText = decryptWithBase64("d5NlAxyR+ShXPTvXcKRRUA==", "RrCjN1i5m1I6ufPllBsBnw==", "At1kSTvetpT+telTVg1Rwg==");
-        System.out.println("ClearText:" + new String(clearText, characterEncoding));
+//        byte[] clearText = decryptWithBase64("d5NlAxyR+ShXPTvXcKRRUA==", "RrCjN1i5m1I6ufPllBsBnw==", "At1kSTvetpT+telTVg1Rwg==");
+//        System.out.println("ClearText:" + new String(clearText, characterEncoding));
     }
 
 
