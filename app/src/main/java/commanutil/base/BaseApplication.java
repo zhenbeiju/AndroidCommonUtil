@@ -3,6 +3,7 @@ package commanutil.base;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
+import android.util.LruCache;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -26,6 +27,7 @@ public class BaseApplication extends Application implements IGloableHeap {
     private Map<String, Long> mGlobalLongMap = new HashMap<String, Long>();
     private Map<String, Object> mGlobalObjectMap = new HashMap<String, Object>();
     private Map<String, Float> mGlobalFloatMap = new HashMap<String, Float>();
+    private LruCache<String, Object> mFragmentCache = new LruCache<String, Object>(512 * 1024);
 
     public String getStr() {
         return "";
@@ -90,6 +92,11 @@ public class BaseApplication extends Application implements IGloableHeap {
     public Map<String, Boolean> getGlobalBooleanMap() {
         // TODO Auto-generated method stub
         return mGlobalBooleanMap;
+    }
+
+    @Override
+    public LruCache<String, Object> getFragmentCache() {
+        return mFragmentCache;
     }
 
 }

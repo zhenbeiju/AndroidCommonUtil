@@ -17,13 +17,21 @@ import commanutil.utl.StringUtil;
  * Created by zhanglin on 5/24/16.
  */
 public class BaseFragment extends Fragment {
-
-
     protected String name;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+
+        if (bundle != null & bundle.size() > 0) {
+            Object[] objects = new Object[bundle.size()];
+            for (int i = 0; i < bundle.size(); i++) {
+                String key = bundle.getString("key" + i);
+                objects[i] = BaseApplication.mBaseContext.getFragmentCache(key);
+            }
+            setData(objects);
+        }
     }
 
     @Override
@@ -70,13 +78,6 @@ public class BaseFragment extends Fragment {
         jumpToFragment(jumpClass.getName(), target);
     }
 
-    public void jumpToFragment(Class jumpClass, Object object) {
-        jumpToFragment(jumpClass.getName(), object);
-    }
-
-    public void jumpToFragment(Class jumpClass, Object object, Class target) {
-        jumpToFragment(jumpClass.getName(), object, target);
-    }
 
     /**
      * open fragment in a new activity
@@ -84,67 +85,59 @@ public class BaseFragment extends Fragment {
      * @param classpath
      */
     public void jumpToFragment(String classpath) {
-        jumpToFragment(classpath, null, null, getContext(), NormalActivity.class);
-    }
-
-
-    public void jumpToFragment(String classpath, Object object) {
-        jumpToFragment(classpath, object, getContext());
+        jumpToFragment(classpath, getContext(), NormalActivity.class);
     }
 
     public void jumpToFragment(String classpath, Class targetClass) {
-        jumpToFragment(classpath, null, targetClass);
+        jumpToFragment(classpath, getContext(), targetClass);
     }
 
-    public void jumpToFragment(String classpath, Object object, Class targetClass) {
-        jumpToFragment(classpath, object, null, getContext(), targetClass);
+    public void jumpToFragment(String classpath, Object... object) {
+        jumpToFragment(classpath, getContext(), object);
     }
 
-    public void jumpToFragment(String classpath, Object object, Object object2) {
-        jumpToFragment(classpath, object, object2, getContext());
+    public void jumpToFragment(String classpath, Class target, Object... object) {
+        jumpToFragment(classpath, getContext(), target, object);
     }
 
-    public void jumpToFragment(String classpath, Object object, Object object2, Class target) {
-        jumpToFragment(classpath, object, object2, getContext(), target);
+    public void jumpToFragment(Class jumpClass, Object... object) {
+        jumpToFragment(jumpClass.getName(), getContext(), object);
     }
 
-    public void jumpToFragment(Class jumpClass, Object object, Object object2) {
-        jumpToFragment(jumpClass.getName(), object, object2, getContext());
-    }
-
-    public void jumpToFragment(Class jumpClass, Object object, Object object2, Class targetClass) {
-        jumpToFragment(jumpClass.getName(), object, object2, getContext(), targetClass);
+    public void jumpToFragment(Class jumpClass, Class targetClass, Object... object) {
+        jumpToFragment(jumpClass.getName(), getContext(), targetClass, object);
     }
 
 
-    public static void jumpToFragment(String classpath, Object object, Context context) {
-        jumpToFragment(classpath, object, null, context);
-    }
-
-    public static void jumpToFragment(String classpath, Object object, Object object2, Context context) {
-        jumpToFragment(classpath, object, object2, context, NormalActivity.class);
+    public static void jumpToFragment(String classpath, Context context, Object... objects) {
+        jumpToFragment(classpath, context, NormalActivity.class, objects);
     }
 
 
-    public static void jumpToFragment(String classpath, Object object, Object object2, Context context, Class targetClass) {
+    public static void jumpToFragment(String classpath, Context context, Class targetClass, Object... objects) {
         Intent i = new Intent();
         i.putExtra("classname", classpath);
         i.setClass(context, targetClass);
-        if (object != null || object2 != null) {
-            i.putExtra("HasObj", true);
-            String key = System.currentTimeMillis() + "";
-            i.putExtra("key", key);
-            BaseApplication.mBaseContext.setGlobalObject(key, object);
-            String key2 = new Random().nextLong() + "";
-            i.putExtra("key2", key2);
-            BaseApplication.mBaseContext.setGlobalObject(key2, object2);
+
+        if (objects != null && objects.length > 0) {
+            Bundle bundle = new Bundle();
+            for (int j = 0; j < objects.length; j++) {
+                Object object = objects[j];
+                String key = object.hashCode() + "";
+                BaseApplication.mBaseContext.setFragmentCache(key, object);
+                bundle.putString("key" + j, key);
+            }
+            i.putExtra("bundle", bundle);
         }
         context.startActivity(i);
     }
 
+    @Override
+    public void setArguments(Bundle args) {
+        super.setArguments(args);
+    }
 
     public void changeFragment(BaseFragment fragment) {
-
         ((BaseActivity) getActivity()).changeFragment(fragment);
     }
 
@@ -153,15 +146,9 @@ public class BaseFragment extends Fragment {
         ((BaseActivity) getActivity()).changeFragmentBack(fragment);
     }
 
-    public void setData(Object object) {
+    public void setData(Object... objects) {
         throw new RuntimeException(" please overwrite this method!");
     }
-
-
-    public void setData(Object object, Object object2) {
-        throw new RuntimeException(" please overwrite this method!");
-    }
-
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return false;

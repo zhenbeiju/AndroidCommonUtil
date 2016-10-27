@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.util.LruCache;
 
 import commanutil.inf.IGlobalValueOperation;
 import commanutil.inf.IPrefrenceOperation;
@@ -28,6 +29,7 @@ public class BaseContext implements IPrefrenceOperation, IGlobalValueOperation {
     private Map<String, Long> mGlobalLongMap;
     private Map<String, Object> mGlobalObjectMap;
     private Map<String, Float> mGlobalFloatMap;
+    private LruCache<String, Object> mFragmentCache;
 
     /**
      * 
@@ -55,7 +57,7 @@ public class BaseContext implements IPrefrenceOperation, IGlobalValueOperation {
             mGlobalLongMap = gloableHeap.getGlobalLongMap();
             mGlobalObjectMap = gloableHeap.getGlobalObjectMap();
             mGlobalFloatMap = gloableHeap.getGlobalFloatMap();
-            
+            mFragmentCache = gloableHeap.getFragmentCache();
         } catch (Exception e) {
             LogManager.printStackTrace(e);
             throw new RuntimeException("Application need implements IGloableHeap!");
@@ -302,11 +304,19 @@ public class BaseContext implements IPrefrenceOperation, IGlobalValueOperation {
     }
 
     /**
-     * 
+     * 设置fragment 跳转缓存数据
+     *
      * @param key
-     *            全局对象的key值
-     * @param defVal
-     *            全局对象key对应的默认value值
+     * @param object
+     */
+    public void setFragmentCache(String key, Object object) {
+        LogManager.e(key + "  " + object.toString());
+        mFragmentCache.put(key, object);
+    }
+
+    /**
+     * @param key    全局对象的key值
+     * @param defVal 全局对象key对应的默认value值
      * @return 对应的value值
      */
     public boolean getGlobalBoolean(String key, boolean defVal) {
@@ -461,6 +471,12 @@ public class BaseContext implements IPrefrenceOperation, IGlobalValueOperation {
     public Object getGlobalObject(String key) {
         return mGlobalObjectMap.get(key);
     }
+
+    public Object getFragmentCache(String key) {
+        LogManager.e(key + "|" + mFragmentCache.size());
+        return mFragmentCache.get(key);
+    }
+
 
     /**
      * 

@@ -5,6 +5,10 @@ import android.view.MenuItem;
 
 import com.zhenbeiju.commanutil.R;
 
+import commanutil.utl.LogManager;
+
+import static android.R.attr.data;
+
 /**
  * need add this activity to manifest
  * Created by zhanglin on 5/23/16.
@@ -29,31 +33,17 @@ public class NormalActivity extends BaseActivity {
         super.setContentView(layoutResID);
         setSwipeBackEnable(true);
         String classname = getIntent().getStringExtra("classname");
-        boolean hasobj = getIntent().getBooleanExtra("HasObj", false);
-        Object data = null;
-        Object data2 = null;
-        if (hasobj) {
-            String key = getIntent().getStringExtra("key");
-            data = BaseApplication.mBaseContext.getGlobalObject(key);
-            BaseApplication.mBaseContext.setGlobalObject(key, null);
-
-            if (getIntent().hasExtra("key2")) {
-                String key2 = getIntent().getStringExtra("key2");
-                data2 = BaseApplication.mBaseContext.getGlobalObject(key2);
-                BaseApplication.mBaseContext.setGlobalObject(key2, null);
-            }
-        }
+        boolean hasobj = getIntent().hasExtra("bundle");
 
         try {
             Object object = Class.forName(classname).newInstance();
             BaseFragment fragment = (BaseFragment) object;
-            if (data != null || data2 != null) {
-                if (data2 != null) {
-                    fragment.setData(data, data2);
-                } else {
-                    fragment.setData(data);
-                }
+            if (hasobj) {
+                Bundle bundle = getIntent().getBundleExtra("bundle");
+                LogManager.e(bundle.size()+"");
+                fragment.setArguments(bundle);
             }
+
             changeFragment(fragment);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -62,6 +52,7 @@ public class NormalActivity extends BaseActivity {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
