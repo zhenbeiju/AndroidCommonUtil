@@ -161,10 +161,8 @@ public class DialogInfo {
 
 
         try {
-            LogManager.e("dismiss");
             if (loadingdialog != null) {
                 loadingdialog.dismiss();
-                LogManager.e("dismiss");
             }
         } catch (Exception e) {
             LogManager.printStackTrace(e);
@@ -172,14 +170,13 @@ public class DialogInfo {
 
 
         try {
-            LogManager.e("dismiss");
             if (dialogCreate != null) {
                 dialogCreate.dismiss();
-                LogManager.e("dismiss");
             }
         } catch (Exception e) {
             LogManager.printStackTrace(e);
         }
+        LogManager.w("dismiss");
     }
 
     public static void dismissLoadingDialog() {

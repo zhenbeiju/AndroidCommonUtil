@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.schedulers.Schedulers;
 
 
@@ -14,6 +15,7 @@ import rx.schedulers.Schedulers;
  */
 public class LoadDialog<T> {
     private Context context;
+    private Subscription subscription;
 
     public LoadDialog(Context context) {
         this.context = context;
@@ -30,12 +32,15 @@ public class LoadDialog<T> {
             @Override
             public void onCancel(DialogInterface dialog) {
                 observable.unsubscribeOn(Schedulers.io());
+                if(subscription!=null){
+                    subscription.unsubscribe();
+                }
             }
         });
         return Observable.create(new Observable.OnSubscribe<T>() {
             @Override
             public void call(final Subscriber<? super T> subscriber) {
-                observable.subscribe(new Subscriber<T>() {
+                subscription = observable.subscribe(new Subscriber<T>() {
                     @Override
                     public void onCompleted() {
                         subscriber.onCompleted();
