@@ -23,8 +23,7 @@ public class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-
-        if (bundle != null & bundle.size() > 0) {
+        if (bundle != null && bundle.size() > 0) {
             Object[] objects = new Object[bundle.size()];
             for (int i = 0; i < bundle.size(); i++) {
                 String key = bundle.getString("key" + i);
